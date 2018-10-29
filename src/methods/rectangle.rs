@@ -3,8 +3,9 @@ pub struct Rectangle {
   width: u32,
 }
 
+ // methods
 impl Rectangle {
-  // method
+
   pub fn area(&self) -> u32 {
     self.height * self.width
   }
@@ -12,13 +13,19 @@ impl Rectangle {
   pub fn show(&self) {
     println!("Area of {}X{}: {}", self.height, self.width, self.area());
   }
-  // related function
+ 
+}
+
+ // related functions
+impl Rectangle {
+
   fn new(height: u32, width: u32) -> Rectangle {
     Rectangle {
       height,
       width
     }
   }
+
 }
 
 
