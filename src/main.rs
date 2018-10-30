@@ -1,7 +1,7 @@
-mod methods;
+mod geometry;
 
 fn main() {
-  let circle = methods::circle::make(50, 35, 43.96);
+  let circle = geometry::circle::make(50, 35, 43.96);
   circle.show();
   println!("{:#?}", circle);
 }
