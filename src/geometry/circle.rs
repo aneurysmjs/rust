@@ -9,7 +9,7 @@ pub struct Circle {
 
 impl Circle {
   pub fn area(&self) -> f32 {
-    PI * (self.radius * self.radius)
+    PI * (f32::powi(self.radius, 2))
   }
   pub fn show(&self) {
     println!("Area is: {}", self.area());
