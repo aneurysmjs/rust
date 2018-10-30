@@ -1,3 +1,4 @@
+#[derive(Debug)]
 pub struct Rectangle {
   height: u32,
   width: u32,
@@ -18,14 +19,12 @@ impl Rectangle {
 
  // related functions
 impl Rectangle {
-
   fn new(height: u32, width: u32) -> Rectangle {
     Rectangle {
       height,
       width
     }
   }
-
 }
 
 
