@@ -1,5 +1,5 @@
 // https://stackoverflow.com/questions/36476775/why-is-the-std-module-undeclared
-use std;
+use std::f64::consts::PI;
 
 #[derive(Debug)]
 pub struct Circle {
@@ -10,7 +10,7 @@ pub struct Circle {
 
 impl Circle {
   pub fn area(&self) -> f64 {
-    std::f64::consts::PI * (f64::powi(self.radius, 2))
+    PI * (f64::powi(self.radius, 2))
   }
   pub fn show(&self) {
     println!("Area is: {}", self.area());
