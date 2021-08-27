@@ -19,14 +19,10 @@ impl Circle {
 
 impl Circle {
   fn new(x: i32, y: i32, radius: f64) -> Circle {
-    Circle {
-      x,
-      y,
-      radius
-    }
+    Circle { x, y, radius }
   }
 }
 
-pub fn make(x: i32, y:i32, radius: f64) -> Circle {
+pub fn make(x: i32, y: i32, radius: f64) -> Circle {
   Circle::new(x, y, radius)
 }
