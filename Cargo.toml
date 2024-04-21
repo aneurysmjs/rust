@@ -1,7 +1,9 @@
 [workspace]
-  members = [
-    "geometry",
-    "tacticool",
-    "snake",
-    "regexes"
-  ]
+resolver = "2"
+members = [
+  "geometry",
+  "tacticool",
+  "snake",
+  "regexes",
+  "problems"
+]
