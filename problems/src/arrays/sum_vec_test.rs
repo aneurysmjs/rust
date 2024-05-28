@@ -1,4 +1,4 @@
-use super::{ sum_vector };
+use super::sum_vector;
 
 #[cfg(test)]
 #[test]
