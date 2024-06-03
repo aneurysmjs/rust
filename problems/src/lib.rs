@@ -1,6 +1,7 @@
 // src/lib.rs
 
 mod arrays;
+mod math;
 
 // pub fn rotate(some_vec: &mut Vec<i32>, k: i32) -> i32 {
 //   let mut total = 0;
