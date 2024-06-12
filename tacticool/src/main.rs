@@ -22,12 +22,12 @@
 use std::fs::File;
 
 fn main() {
-  let f = File::open("test.txt");
+  let f = File::open("../cargo.toml");
 
   let f = match f {
     Ok(file) => file,
     Err(err) => { panic!("there was a problem opening: {:?}", err) }
   };
 
-  println!("file", f);
+  println!("file {:?}", f);
 }
