@@ -12,6 +12,20 @@ cargo run -p WORKSPACE
 ```
 cargo run -p WORKSPACE --bin NAME_OF_FILE
 ```
+
+### run binaries in subdirectories
+By default, Cargo looks for binaries in `src/bin/` directory. To run binaries from subdirectories, you need to configure them in `Cargo.toml`:
+
+```toml
+[[bin]]
+name = "NAME_OF_BIN"
+path = "src/bin/lifetimes/NAME_OF_BIN.rs"
+```
+
+Then run with:
+```
+cargo run -p  WORKSPACE --bin NAME_OF_BIN
+```
 ## run a single test
 
 ```

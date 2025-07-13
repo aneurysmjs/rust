@@ -1,0 +1,20 @@
+[package]
+name = "playground"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+# Binary target configuration - allows specifying custom paths for binaries
+# This enables running binaries from subdirectories with: cargo run --bin <name>
+# Each [[bin]] block defines a separate binary with its own main() function
+[[bin]]
+name = "example_1"
+path = "src/bin/lifetimes/example_1.rs"
+
+[[bin]]
+name = "example_2"
+path = "src/bin/lifetimes/example_2.rs"
+
+
+[dependencies]
