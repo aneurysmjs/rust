@@ -1,11 +1,11 @@
 pub fn sum_vector(some_vec: &Vec<i32>) -> i32 {
-  let mut total = 0;
+    let mut total = 0;
 
-  for i in some_vec {
-    total += i;
-  }
+    for i in some_vec {
+        total += i;
+    }
 
-  total
+    total
 }
 
 #[cfg(test)]

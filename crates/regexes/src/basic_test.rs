@@ -1,8 +1,8 @@
-use super::{ is_number };
+use super::is_number;
 
 #[test]
 fn it_works() {
-  let result = is_number("2");
+    let result = is_number("2");
 
-  assert!(result)
+    assert!(result)
 }
