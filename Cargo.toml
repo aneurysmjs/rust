@@ -1,9 +1,3 @@
 [workspace]
 resolver = "2"
-members = [
-  "geometry",
-  "tacticool",
-  "snake",
-  "regexes",
-  "problems"
-]
+members = ["crates/*"]
