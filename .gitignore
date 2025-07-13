@@ -76,3 +76,10 @@ typings/
 .idea
 
 .DS_Store
+
+# Rust
+target/
+**/*.rs.bk
+
+# Wasm
+**/*.wasm
