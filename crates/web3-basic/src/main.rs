@@ -1,14 +1,35 @@
 mod balances;
 mod system;
 
+struct Runtime {
+    system: system::Pallet,
+    balances: balances::Pallet,
+}
+
+impl Runtime {
+    pub fn new() -> Self {
+        Self { system: system::Pallet::new(), balances: balances::Pallet::new() }
+    }
+}
+
 fn main() {
-    let mut balances = balances::Pallet::new();
+    let alice = "Alice".to_string();
+    let bob = "Bob".to_string();
+    let charlie = "Charlie".to_string();
 
-    balances.set_balance(&"Alice".to_string(), 100);
+    let mut runtime = Runtime::new();
 
-    let alice_balance = balances.get_balance(&"Alice".to_string());
+    runtime.balances.set_balance(&alice, 100);
 
-    balances.transfer(&"Alice".to_string(), &"Bob".to_string(), 50).unwrap();
+    runtime.system.inc_nonce(&alice);
+
+    let alice_balance = runtime.balances.get_balance(&alice);
+
+    runtime.balances.transfer(&alice, &bob, 50).map_err(|err| println!("Transfer error: {:?}", err)).ok();
+
+    runtime.system.inc_nonce(&alice);
+
+    runtime.balances.transfer(&alice, &charlie, 50).map_err(|err| println!("Transfer error: {:?}", err)).ok();
 
     println!("Alice's balance is {}", alice_balance);
 }
