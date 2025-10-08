@@ -1,6 +1,7 @@
 mod balances;
 mod system;
 
+#[derive(Debug)]
 struct Runtime {
     system: system::Pallet,
     balances: balances::Pallet,
@@ -21,15 +22,15 @@ fn main() {
 
     runtime.balances.set_balance(&alice, 100);
 
+    runtime.system.inc_block_number();
+
     runtime.system.inc_nonce(&alice);
 
-    let alice_balance = runtime.balances.get_balance(&alice);
-
-    runtime.balances.transfer(&alice, &bob, 50).map_err(|err| println!("Transfer error: {:?}", err)).ok();
+    runtime.balances.transfer(&alice, &bob, 30).map_err(|err| println!("Transfer error: {:?}", err)).ok();
 
     runtime.system.inc_nonce(&alice);
 
     runtime.balances.transfer(&alice, &charlie, 50).map_err(|err| println!("Transfer error: {:?}", err)).ok();
 
-    println!("Alice's balance is {}", alice_balance);
+    println!("runtime is {:#?}", runtime);
 }
