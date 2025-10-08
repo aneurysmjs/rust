@@ -1,4 +1,5 @@
 mod balances;
+mod system;
 
 fn main() {
     let mut balances = balances::Pallet::new();
