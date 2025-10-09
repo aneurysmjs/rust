@@ -1,29 +1,35 @@
+use num::traits::{CheckedAdd, CheckedSub, Zero};
 use std::collections::BTreeMap;
 
-#[derive(Debug)]
-pub struct Pallet {
-    balances: BTreeMap<String, u128>,
+pub trait Config {
+    type AccountId: Ord + Clone;
+    type Balance: Zero + CheckedAdd + CheckedSub + Copy;
 }
 
-impl Pallet {
+#[derive(Debug)]
+pub struct Pallet<T: Config> {
+    balances: BTreeMap<T::AccountId, T::Balance>,
+}
+
+impl<T: Config> Pallet<T> {
     pub fn new() -> Self {
         Self { balances: BTreeMap::new() }
     }
 
-    pub fn set_balance(&mut self, who: &String, amount: u128) {
+    pub fn set_balance(&mut self, who: &T::AccountId, amount: T::Balance) {
         self.balances.insert(who.clone(), amount);
     }
 
-    pub fn get_balance(&self, who: &String) -> u128 {
-        *self.balances.get(who).unwrap_or(&0)
+    pub fn get_balance(&self, who: &T::AccountId) -> T::Balance {
+        *self.balances.get(who).unwrap_or(&T::Balance::zero())
     }
 
-    pub fn transfer(&mut self, from: &String, to: &String, amount: u128) -> Result<(), &str> {
+    pub fn transfer(&mut self, from: &T::AccountId, to: &T::AccountId, amount: T::Balance) -> Result<(), &str> {
         let from_balance = self.get_balance(from);
         let to_balance = self.get_balance(to);
 
-        let checked_from_balance = from_balance.checked_sub(amount).ok_or("Insufficient balance")?;
-        let checked_to_balance = to_balance.checked_add(amount).ok_or("Overflow when adding balance")?;
+        let checked_from_balance = from_balance.checked_sub(&amount).ok_or("Insufficient balance")?;
+        let checked_to_balance = to_balance.checked_add(&amount).ok_or("Overflow when adding balance")?;
 
         self.set_balance(from, checked_from_balance);
         self.set_balance(to, checked_to_balance);
@@ -36,9 +42,16 @@ impl Pallet {
 mod tests {
     use super::*;
 
+    struct TestConfig;
+
+    impl Config for TestConfig {
+        type AccountId = String;
+        type Balance = u128;
+    }
+
     #[test]
     fn test_balances() {
-        let mut balances = Pallet::new();
+        let mut balances: super::Pallet<TestConfig> = Pallet::new();
 
         balances.set_balance(&"Alice".to_string(), 100);
         balances.set_balance(&"Bob".to_string(), 200);
@@ -53,7 +66,7 @@ mod tests {
         let alice = "Alice".to_string();
         let bob = "Bob".to_string();
 
-        let mut balances = Pallet::new();
+        let mut balances: super::Pallet<TestConfig> = Pallet::new();
 
         balances.set_balance(&"Alice".to_string(), 100);
         balances.set_balance(&"Bob".to_string(), 200);
@@ -69,7 +82,7 @@ mod tests {
         let alice = "Alice".to_string();
         let bob = "Bob".to_string();
 
-        let mut balances = Pallet::new();
+        let mut balances: super::Pallet<TestConfig> = Pallet::new();
 
         balances.set_balance(&"Alice".to_string(), 100);
         balances.set_balance(&"Bob".to_string(), 200);
@@ -86,7 +99,7 @@ mod tests {
         let alice = "Alice".to_string();
         let bob = "Bob".to_string();
 
-        let mut balances = Pallet::new();
+        let mut balances: super::Pallet<TestConfig> = Pallet::new();
 
         balances.set_balance(&"Alice".to_string(), 100);
         balances.set_balance(&"Bob".to_string(), u128::MAX);
