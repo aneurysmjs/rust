@@ -1,0 +1,12 @@
+{
+  "name": "average",
+  "version": "1.0.0",
+  "description": "using average function from rust via webassembly",
+  "main": "average.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
