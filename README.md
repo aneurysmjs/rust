@@ -31,18 +31,46 @@ cargo run -p  WORKSPACE --bin NAME_OF_BIN
 ```
  cargo test -p WORKSPACE
 ```
-## watch a single workspace
+## watch (auto-rerun on change)
 
-```
-cargo watch -x "run -p WORKSPACE_A"    
-cargo watch -x "run -p WORKSPACE_B"
-...
-```
-## watch a single file in workspace
+Uses [bacon](https://dystroy.org/bacon/) — a background code checker with a TUI. Not built into Cargo, install it once:
 
+```bash
+cargo install --locked bacon
 ```
-cargo watch -x "run -p WORKSPACE --bin NAME_OF_FILE"
+
+> Previously this was `cargo watch`, which was archived by its maintainer in 2024 and is no longer maintained.
+
+Anything after `--` is appended to the job's cargo command, so workspace flags like `-p` and `--bin` go there.
+
+### watch a single workspace
+
+```bash
+bacon run -- -p WORKSPACE          # cargo run -p WORKSPACE
+bacon check -- -p WORKSPACE        # cargo check -p WORKSPACE (default job)
+bacon clippy -- -p WORKSPACE
+bacon test -- -p WORKSPACE
 ```
+
+### watch a single file in workspace
+
+```bash
+bacon run -- -p WORKSPACE --bin NAME_OF_FILE
+```
+
+### useful keys inside the TUI
+
+| key | action |
+| --- | --- |
+| `c` | switch to clippy |
+| `t` | switch to test |
+| `d` | open rust doc |
+| `s` | toggle summary mode |
+| `w` | toggle line wrapping |
+| `?` | all shortcuts |
+| `q` | quit |
+
+List available jobs with `bacon --list-jobs`. Run without the TUI using `bacon --headless <job> -- -p WORKSPACE`.
 
 ## format all files
 

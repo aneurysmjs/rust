@@ -16,5 +16,7 @@ path = "src/bin/lifetimes/example_1.rs"
 name = "example_2"
 path = "src/bin/lifetimes/example_2.rs"
 
+[lib]
+proc-macro = true
 
 [dependencies]

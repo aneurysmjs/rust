@@ -21,8 +21,13 @@ cargo test  -p <crate> module::tests::test_name   # exact path
 cargo test  -p <crate> -- --nocapture        # show stdout
 cargo test  -p <crate> -- --list             # list tests without running
 
-cargo watch -x "run -p <crate>"              # auto-rerun on change
+bacon run   -- -p <crate>                    # auto-rerun on change (bacon, not cargo-watch)
+bacon check -- -p <crate>                    # default job; also clippy / test
 ```
+
+Watching uses [bacon](https://dystroy.org/bacon/) (`cargo install --locked bacon`), which replaced the
+now-unmaintained `cargo watch`. Everything after `--` is appended to the job's cargo command, so `-p` and
+`--bin` go there: `bacon run -- -p playground --bin operations_that_move`.
 
 Format (rustfmt config: `max_width = 150`, `use_small_heuristics = "Max"`):
 
